@@ -181,7 +181,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            Startseite
           </a>
         </li>
       
@@ -191,7 +191,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            Archiv
           </a>
         </li>
       
@@ -214,6 +214,132 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://jirqoadai.com/2018/02/23/js函数汇总（1）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jirqoadai">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="A rolling stone">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/02/23/js函数汇总（1）/" itemprop="url">js函数汇总（1）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-23T20:29:01+08:00">
+                2018-02-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="判断是否为json串"><a href="#判断是否为json串" class="headerlink" title="判断是否为json串"></a>判断是否为json串</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isJSON</span>(<span class="params">str, pass_object</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (pass_object &amp;&amp; isObject(str)) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (!isString(str)) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">	str = str.replace(<span class="regexp">/\s/g</span>, <span class="string">''</span>).replace(<span class="regexp">/\n|\r/</span>, <span class="string">''</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (<span class="regexp">/^\&#123;(.*?)\&#125;$/</span>.test(str))</span><br><span class="line">		<span class="keyword">return</span> <span class="regexp">/"(.*?)":(.*?)/g</span>.test(str);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (<span class="regexp">/^\[(.*?)\]$/</span>.test(str)) &#123;</span><br><span class="line">		<span class="keyword">return</span> str.replace(<span class="regexp">/^\[/</span>, <span class="string">''</span>)</span><br><span class="line">			.replace(<span class="regexp">/\]$/</span>, <span class="string">''</span>)</span><br><span class="line">			.replace(<span class="regexp">/&#125;,&#123;/g</span>, <span class="string">'&#125;\n&#123;'</span>)</span><br><span class="line">			.split(<span class="regexp">/\n/</span>)</span><br><span class="line">			.map(<span class="function"><span class="keyword">function</span> (<span class="params">s</span>) </span>&#123;</span><br><span class="line">				<span class="keyword">return</span> isJSON(s);</span><br><span class="line">			&#125;)</span><br><span class="line">			.reduce(<span class="function"><span class="keyword">function</span> (<span class="params">prev, curr</span>) </span>&#123;</span><br><span class="line">				<span class="keyword">return</span> !!curr;</span><br><span class="line">			&#125;);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">strict</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (isObject(str)) &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">JSON</span>.parse(str) &amp;&amp; <span class="literal">true</span>;</span><br><span class="line">	&#125; <span class="keyword">catch</span> (ex) &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isString</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">Object</span>.prototype.toString.call(x) === <span class="string">'[object String]'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isObject</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">Object</span>.prototype.toString.call(obj) === <span class="string">'[object Object]'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="打印对象"><a href="#打印对象" class="headerlink" title="打印对象"></a>打印对象</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">alertObj</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> output = <span class="string">""</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">var</span> i <span class="keyword">in</span> obj)&#123;  </span><br><span class="line">		<span class="keyword">var</span> property=obj[i];  </span><br><span class="line">		output+=i+<span class="string">" = "</span>+property+<span class="string">"\n"</span>;</span><br><span class="line">	&#125;  </span><br><span class="line">	alert(output);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="打印navigator-userAgent"><a href="#打印navigator-userAgent" class="headerlink" title="打印navigator.userAgent"></a>打印navigator.userAgent</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Sys = &#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> ua = navigator.userAgent.toLowerCase();</span><br><span class="line"><span class="keyword">var</span> s;</span><br><span class="line">(s = ua.match(<span class="regexp">/msie ([\d.]+)/</span>)) ? Sys.ie = s[<span class="number">1</span>] :</span><br><span class="line">(s = ua.match(<span class="regexp">/firefox\/([\d.]+)/</span>)) ? Sys.firefox = s[<span class="number">1</span>] :</span><br><span class="line">(s = ua.match(<span class="regexp">/chrome\/([\d.]+)/</span>)) ? Sys.chrome = s[<span class="number">1</span>] :</span><br><span class="line">(s = ua.match(<span class="regexp">/opera.([\d.]+)/</span>)) ? Sys.opera = s[<span class="number">1</span>] :</span><br><span class="line">(s = ua.match(<span class="regexp">/version\/([\d.]+).*safari/</span>)) ? Sys.safari = s[<span class="number">1</span>] : <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//以下进行测试</span></span><br><span class="line"><span class="keyword">if</span> (Sys.ie) <span class="built_in">document</span>.write(<span class="string">'IE: '</span> + Sys.ie);</span><br><span class="line"><span class="keyword">if</span> (Sys.firefox) <span class="built_in">document</span>.write(<span class="string">'Firefox: '</span> + Sys.firefox);</span><br><span class="line"><span class="keyword">if</span> (Sys.chrome) <span class="built_in">document</span>.write(<span class="string">'Chrome: '</span> + Sys.chrome);</span><br><span class="line"><span class="keyword">if</span> (Sys.opera) <span class="built_in">document</span>.write(<span class="string">'Opera: '</span> + Sys.opera);</span><br><span class="line"><span class="keyword">if</span> (Sys.safari) <span class="built_in">document</span>.write(<span class="string">'Safari: '</span> + Sys.safari);</span><br></pre></td></tr></table></figure>
+<h1 id="Jquery插件模版"><a href="#Jquery插件模版" class="headerlink" title="Jquery插件模版"></a>Jquery插件模版</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">$</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">     $.fn.functionName = <span class="function"><span class="keyword">function</span>(<span class="params">option</span>)</span>&#123;</span><br><span class="line">          <span class="keyword">var</span> defaultSetting = &#123; <span class="attr">colorStr</span>:<span class="string">"green"</span>,<span class="attr">fontSize</span>:<span class="number">12</span>&#125;;</span><br><span class="line">          <span class="keyword">var</span> setting = $.extend(defaultSetting,option);</span><br><span class="line">          <span class="keyword">this</span>.css(<span class="string">"color"</span>,setting.colorStr).css(<span class="string">"fontSize"</span>,setting.fontSize+<span class="string">"px"</span>);</span><br><span class="line">         <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;(jQuery));</span><br></pre></td></tr></table></figure>
+<h1 id="获取url参数"><a href="#获取url参数" class="headerlink" title="获取url参数"></a>获取url参数</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getQueryValue</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> reg = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">'(^|&amp;)'</span> + name + <span class="string">'=([^&amp;]*)(&amp;|$)'</span>, <span class="string">'i'</span>);</span><br><span class="line">	<span class="keyword">var</span> r = <span class="built_in">window</span>.location.search.substr(<span class="number">1</span>).match(reg);</span><br><span class="line">	<span class="keyword">if</span> (r != <span class="literal">null</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">decodeURIComponent</span>(r[<span class="number">2</span>]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="ajax原生方法"><a href="#ajax原生方法" class="headerlink" title="ajax原生方法"></a>ajax原生方法</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">// jQuery  </span><br><span class="line">$.get(&apos;url&apos;, function (data) &#123;  </span><br><span class="line"></span><br><span class="line">&#125;);  </span><br><span class="line">$.post(&apos;url&apos;, &#123;data: data&#125;, function (data) &#123;  </span><br><span class="line"></span><br><span class="line">&#125;);  </span><br><span class="line"></span><br><span class="line">// 原生方法  </span><br><span class="line">// get  </span><br><span class="line">var xhr = new XMLHttpRequest();  </span><br><span class="line"></span><br><span class="line">xhr.open(&apos;GET&apos;, url);  </span><br><span class="line">xhr.onreadystatechange = function (data) &#123;  </span><br><span class="line"></span><br><span class="line">&#125;  </span><br><span class="line">xhr.send();  </span><br><span class="line"></span><br><span class="line">// post  </span><br><span class="line">var xhr = new XMLHttpRequest()  </span><br><span class="line"></span><br><span class="line">xhr.open(&apos;POST&apos;, url);  </span><br><span class="line">xhr.onreadystatechange = function (data) &#123;  </span><br><span class="line"></span><br><span class="line">&#125;  </span><br><span class="line">xhr.send(&#123;data: data&#125;);</span><br></pre></td></tr></table></figure>
+<h1 id="格式化日期"><a href="#格式化日期" class="headerlink" title="格式化日期"></a>格式化日期</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">Date.prototype.Format = function (fmt) &#123;</span><br><span class="line">  var o = &#123;</span><br><span class="line">    &quot;y+&quot;: this.getFullYear(),</span><br><span class="line">    &quot;M+&quot;: this.getMonth() + 1,                 //月份</span><br><span class="line">    &quot;d+&quot;: this.getDate(),                    //日</span><br><span class="line">    &quot;h+&quot;: this.getHours(),                   //小时</span><br><span class="line">    &quot;m+&quot;: this.getMinutes(),                 //分</span><br><span class="line">    &quot;s+&quot;: this.getSeconds(),                 //秒</span><br><span class="line">    &quot;q+&quot;: Math.floor((this.getMonth() + 3) / 3), //季度</span><br><span class="line">    &quot;S+&quot;: this.getMilliseconds()             //毫秒</span><br><span class="line">  &#125;;</span><br><span class="line">  for (var k in o) &#123;</span><br><span class="line">    if (new RegExp(&quot;(&quot; + k + &quot;)&quot;).test(fmt))&#123;</span><br><span class="line">      if(k == &quot;y+&quot;)&#123;</span><br><span class="line">        fmt = fmt.replace(RegExp.$1, (&quot;&quot; + o[k]).substr(4 - RegExp.$1.length));</span><br><span class="line">      &#125;</span><br><span class="line">      else if(k==&quot;S+&quot;)&#123;</span><br><span class="line">        var lens = RegExp.$1.length;</span><br><span class="line">        lens = lens==1?3:lens;</span><br><span class="line">        fmt = fmt.replace(RegExp.$1, (&quot;00&quot; + o[k]).substr((&quot;&quot; + o[k]).length - 1,lens));</span><br><span class="line">      &#125;</span><br><span class="line">      else&#123;</span><br><span class="line">        fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : ((&quot;00&quot; + o[k]).substr((&quot;&quot; + o[k]).length)));</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return fmt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 使用</span><br><span class="line">var date = new Date();</span><br><span class="line">console.log(date.Format(&quot;yyyy年MM月dd日 hh:mm:ss.S&quot;)); //输出: 2016年04月01日 10:41:08.133</span><br><span class="line">console.log(date.Format(&quot;yyyy-MM-dd hh:mm:ss&quot;)); //输出: 2016-04-01 10:41:08</span><br><span class="line">console.log(date.Format(&quot;yy-MM-dd hh:mm:ss&quot;)); //输出: 16-04-01 10:41:08</span><br><span class="line">console.log(date.Format(&quot;yy-M-d hh:mm:ss&quot;)); //输出: 16-4-1 10:41:08</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -257,7 +383,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-22T20:38:48+08:00">
                 2018-02-22
@@ -404,7 +530,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-20T08:49:40+08:00">
                 2018-01-20
@@ -523,7 +649,7 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Veröffentlicht am</span>
               
               <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-15T22:35:29+08:00">
                 2018-01-15
@@ -655,8 +781,8 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">Artikel</span>
                 </a>
               </div>
             
@@ -706,7 +832,7 @@
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 
